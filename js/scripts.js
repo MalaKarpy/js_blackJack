@@ -1,7 +1,6 @@
 
 
  var drawCards = function(numberCards) {
-   //array of cards goes here
    var userCards = new Array();
    for(var i = 0; i < numberCards; i++){
      var deck = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
@@ -9,15 +8,13 @@
      userCards.push(deck[randomNum]);
    }
    return userCards;
-
 };
 
 var drawSingleCard = function(numberCards) {
   var userCard;
-    var deck = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-    var randomNum = Math.floor(Math.random() * 12);
+  var deck = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  var randomNum = Math.floor(Math.random() * 12);
   return userCard;
-
 };
 
 var getScore = function(deckArray){
@@ -57,26 +54,29 @@ var getScore = function(deckArray){
     }
 
   }//end of for loop
+
   if (numAces > 0){
-  if((score + (numAces - 1) + 11) <= 21){
-    for(i = 0; i < (numAces - 1); i++){
-      score += 1;
+    if((score + (numAces - 1) + 11) <= 21){
+      for(i = 0; i < (numAces - 1); i++){
+        score += 1;
+      }
+      score += 11;
     }
-    score += 11;
-  }
-  else{
-    for(i = 0; i < (numAces); i++){
-      score += 1;
-    }
+    else{
+      for(i = 0; i < (numAces); i++){
+        score += 1;
+      }
   }
 }
   return score;
 };
 
 var didTheyBust = function(score){
+
   if(score > 21){
     return true;
   }
+
   if(score <= 21){
     return false;
   }
@@ -116,6 +116,7 @@ var whoWon = function(playerScore, dealerScore){
 
 var doesDealerHit = function(dealerDeck){
   var dealerScore = getScore(dealerDeck);
+
   if(dealerScore >= 17){
     return false;
   }
@@ -136,123 +137,108 @@ $(document).ready(function() {
     $(".dealerDeck").text(dealerCards);
     $(".playerScore").text(getScore(playerCards));
     $(".dealerScore").text(getScore(dealerCards));
-
     $('#cardDisplay').show();
-//    $('#buttonDiv').show();
-  //  $('#game-over').hide();
-
-
     event.preventDefault();
 
-      $("form#hit").submit(function(event) {
-      //  playerCards.push(drawCards(1));
+    $("form#hit").submit(function(event) {
       thisArray = drawCards(1);
       playerCards.push(thisArray[0]);
+
       if(didTheyBust(playerScore) === true){
-        debugger;
         playerScore = getScore(playerCards);
         dealerScore = getScore(dealerCards);
         $(".playerDeck").text(playerCards);
         $(".dealerDeck").text(dealerCards);
         $(".playerScore").text(playerScore);
         $(".dealerScore").text(dealerScore);
-
         winner = whoWon(playerScore, dealerScore);
         $(".winner").text(winner);
         $('#game-over').show();
-      //  $('#buttonDiv').hide();
+      }//end if
 
-      }
-
-        if(doesDealerHit(dealerCards) === true){
-          thisArray = drawCards(1);
-          dealerCards.push(thisArray[0]);
-          playerScore = getScore(playerCards);
-          dealerScore = getScore(dealerCards);
-          if(didTheyBust(dealerScore) === true){
-            playerScore = getScore(playerCards);
-            dealerScore = getScore(dealerCards);
-            $(".playerDeck").text(playerCards);
-            $(".dealerDeck").text(dealerCards);
-            $(".playerScore").text(playerScore);
-            $(".dealerScore").text(dealerScore);
-
-            winner = whoWon(playerScore, dealerScore);
-            $(".winner").text(winner);
-            $('#game-over').show();
-        //    $('#buttonDiv').hide();
-
-          }
-        }
-
-        if(doesDealerHit(dealerCards) === false){
-          debugger;
-          playerScore = getScore(playerCards);
-          dealerScore = getScore(dealerCards);
-          var winner = whoWon(playerScore, dealerScore);
-          $(".winner").text("Dealer decided to hold, which ends game... " + winner);
-          $('#game-over').show();
-          $('#buttonDiv').hide();
-
-        }
+      if(doesDealerHit(dealerCards) === true){
+        thisArray = drawCards(1);
+        dealerCards.push(thisArray[0]);
         playerScore = getScore(playerCards);
         dealerScore = getScore(dealerCards);
-        $(".playerDeck").text(playerCards);
-        $(".dealerDeck").text(dealerCards);
-        $(".playerScore").text(playerScore);
-        $(".dealerScore").text(dealerScore);
-        $('#cardDisplay').show();
 
-        event.preventDefault();
-      });
-
-      $("form#stay").submit(function(event) {
-        if(doesDealerHit(dealerCards) === true){
-          thisArray = drawCards(1);
-          dealerCards.push(thisArray[0]);
-          playerScore = getScore(playerCards);
-          dealerScore = getScore(dealerCards);
-          if(didTheyBust(dealerScore) === true){
+        if(didTheyBust(dealerScore) === true){
             playerScore = getScore(playerCards);
             dealerScore = getScore(dealerCards);
             $(".playerDeck").text(playerCards);
             $(".dealerDeck").text(dealerCards);
             $(".playerScore").text(playerScore);
             $(".dealerScore").text(dealerScore);
-
             winner = whoWon(playerScore, dealerScore);
             $(".winner").text(winner);
             $('#game-over').show();
-        //    $('#buttonDiv').hide();
+          }//end if(didTheyBust(dealerScore) === true)
+        }//end if(doesDealerHit(dealerCards) === true)
 
-            $(".")
-          }
-        }
-        if(doesDealerHit(dealerCards) === false){
-          debugger;
+      if(doesDealerHit(dealerCards) === false){
+        debugger;
+        playerScore = getScore(playerCards);
+        dealerScore = getScore(dealerCards);
+        var winner = whoWon(playerScore, dealerScore);
+        $(".winner").text("Dealer decided to hold, which ends game... " + winner);
+        $('#game-over').show();
+        $('#buttonDiv').hide();
+      }//end if(doesDealerHit(dealerCards) === false)
+
+      playerScore = getScore(playerCards);
+      dealerScore = getScore(dealerCards);
+      $(".playerDeck").text(playerCards);
+      $(".dealerDeck").text(dealerCards);
+      $(".playerScore").text(playerScore);
+      $(".dealerScore").text(dealerScore);
+      $('#cardDisplay').show();
+      event.preventDefault();
+    }); //end of submit "hit"
+
+
+    $("form#stay").submit(function(event) {
+
+      if(doesDealerHit(dealerCards) === true){
+        thisArray = drawCards(1);
+        dealerCards.push(thisArray[0]);
+        playerScore = getScore(playerCards);
+        dealerScore = getScore(dealerCards);
+
+        if(didTheyBust(dealerScore) === true){
           playerScore = getScore(playerCards);
           dealerScore = getScore(dealerCards);
           $(".playerDeck").text(playerCards);
           $(".dealerDeck").text(dealerCards);
           $(".playerScore").text(playerScore);
           $(".dealerScore").text(dealerScore);
-
           winner = whoWon(playerScore, dealerScore);
-          $(".winner").text("Dealer decided to hold, which ends game..." + winner);
+          $(".winner").text(winner);
           $('#game-over').show();
-          $('#buttonDiv').hide();
+        }//end if didTheyBust(deakerScore === true)
 
-        }
+      } //end if(doesDealerHit(dealerCards) === true)
 
+      if(doesDealerHit(dealerCards) === false){
         playerScore = getScore(playerCards);
         dealerScore = getScore(dealerCards);
         $(".playerDeck").text(playerCards);
         $(".dealerDeck").text(dealerCards);
         $(".playerScore").text(playerScore);
         $(".dealerScore").text(dealerScore);
-        $('#cardDisplay').show();
-        event.preventDefault();
-      });
-  });
+        winner = whoWon(playerScore, dealerScore);
+        $(".winner").text("Dealer decided to hold, which ends game..." + winner);
+        $('#game-over').show();
+        $('#buttonDiv').hide();
+      }//end if(doesDealerHit(dealerCards) === false)
 
-});
+      playerScore = getScore(playerCards);
+      dealerScore = getScore(dealerCards);
+      $(".playerDeck").text(playerCards);
+      $(".dealerDeck").text(dealerCards);
+      $(".playerScore").text(playerScore);
+      $(".dealerScore").text(dealerScore);
+      $('#cardDisplay').show();
+      event.preventDefault();
+    });//end of "stay" form
+  });//end of "get-cards" (play button) form
+});//end of doc ready form
