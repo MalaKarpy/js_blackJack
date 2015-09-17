@@ -1,8 +1,8 @@
 
 describe('getScore', function() {
-  it("is 3 for getScore [A, 2]", function() {
+  it("is 13 for getScore [A, 2]", function() {
     var deck = ['A', '2'];
-    expect(getScore(deck)).to.equal(3);
+    expect(getScore(deck)).to.equal(13);
   });
   it("is 20 for getScore [J, K]", function() {
     var deck = ['J', 'K'];
@@ -13,10 +13,15 @@ describe('getScore', function() {
     var deck = ["8", "7", "3"];
     expect(getScore(deck)).to.equal(18);
   });
-
-  it("")
-
-
+  it("is 21 for getScore [A, A, 9]", function() {
+    var deck = ["A", "A", "9"];
+    expect(getScore(deck)).to.equal(21);
+  });
+  it("is 12 for getScore [A, A, 10]", function() {
+    var deck = ["A", "A", "10"];
+    expect(getScore(deck)).to.equal(12);
+  });
+});
 
 
 describe('didTheyBust', function() {

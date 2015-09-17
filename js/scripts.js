@@ -24,9 +24,11 @@ var drawSingleCard = function(numberCards) {
 
 var getScore = function(deckArray){
   var score = 0;
+  var numAces = 0;
+
   for (var i = 0; i < deckArray.length; i++){
     if(deckArray[i] === "A"){
-        score += 1;
+        numAces++;
     }
     else if(deckArray[i] === "2"){
       score += 2;
@@ -56,6 +58,21 @@ var getScore = function(deckArray){
       score += 10;
     }
 
+  }//end of for loop
+  //if (number aces - 1) + score + 11 <= 21, go  ahead and amke 1 ace
+  // worth 11 and the others worth 1
+  //but if they go over that, then make them all worth 1
+
+  if((score + (numAces - 1) + 11) <= 21){
+    for(i = 0; i < (numAces - 1); i++){
+      score += 1;
+    }
+    score += 11;
+  }
+  else{
+    for(i = 0; i < (numAces); i++){
+      score += 1;
+    }
   }
   return score;
 };
