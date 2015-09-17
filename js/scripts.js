@@ -13,11 +13,9 @@
 };
 
 var drawSingleCard = function(numberCards) {
-  //array of cards goes here
   var userCard;
     var deck = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
     var randomNum = Math.floor(Math.random() * 12);
-  //  userCards.push(deck[randomNum]);
   return userCard;
 
 };
@@ -59,10 +57,6 @@ var getScore = function(deckArray){
     }
 
   }//end of for loop
-  //if (number aces - 1) + score + 11 <= 21, go  ahead and amke 1 ace
-  // worth 11 and the others worth 1
-  //but if they go over that, then make them all worth 1
-
   if((score + (numAces - 1) + 11) <= 21){
     for(i = 0; i < (numAces - 1); i++){
       score += 1;
@@ -131,7 +125,12 @@ $(document).ready(function() {
     var playerScore;
     var dealerScore;
     var thisArray;
+    var winner;
     $(".playerDeck").text(playerCards);
+    $(".dealerDeck").text(dealerCards);
+    $(".playerScore").text(getScore(playerCards));
+    $(".dealerScore").text(getScore(dealerCards));
+
     $('#cardDisplay').show();
     event.preventDefault();
 
@@ -141,12 +140,37 @@ $(document).ready(function() {
       //  playerCards.push(drawCards(1));
       thisArray = drawCards(1);
       playerCards.push(thisArray[0]);
+      if(didTheyBust(playerScore) === true){
+        debugger;
+        playerScore = getScore(playerCards);
+        dealerScore = getScore(dealerCards);
+        $(".playerDeck").text(playerCards);
+        $(".dealerDeck").text(dealerCards);
+        $(".playerScore").text(playerScore);
+        $(".dealerScore").text(dealerScore);
 
+        winner = whoWon(playerScore, dealerScore);
+        $(".winner").text(winner);
+        $('#game-over').show();
+      }
 
         if(doesDealerHit(dealerCards) === true){
           thisArray = drawCards(1);
-
           dealerCards.push(thisArray[0]);
+          playerScore = getScore(playerCards);
+          dealerScore = getScore(dealerCards);
+          if(didTheyBust(dealerScore) === true){
+            playerScore = getScore(playerCards);
+            dealerScore = getScore(dealerCards);
+            $(".playerDeck").text(playerCards);
+            $(".dealerDeck").text(dealerCards);
+            $(".playerScore").text(playerScore);
+            $(".dealerScore").text(dealerScore);
+
+            winner = whoWon(playerScore, dealerScore);
+            $(".winner").text(winner);
+            $('#game-over').show();
+          }
         }
 
         if(doesDealerHit(dealerCards) === false){
@@ -172,12 +196,31 @@ $(document).ready(function() {
         if(doesDealerHit(dealerCards) === true){
           thisArray = drawCards(1);
           dealerCards.push(thisArray[0]);
+          playerScore = getScore(playerCards);
+          dealerScore = getScore(dealerCards);
+          if(didTheyBust(dealerScore) === true){
+            playerScore = getScore(playerCards);
+            dealerScore = getScore(dealerCards);
+            $(".playerDeck").text(playerCards);
+            $(".dealerDeck").text(dealerCards);
+            $(".playerScore").text(playerScore);
+            $(".dealerScore").text(dealerScore);
+
+            winner = whoWon(playerScore, dealerScore);
+            $(".winner").text(winner);
+            $('#game-over').show();
+          }
         }
         if(doesDealerHit(dealerCards) === false){
           debugger;
           playerScore = getScore(playerCards);
           dealerScore = getScore(dealerCards);
-          var winner = whoWon(playerScore, dealerScore);
+          $(".playerDeck").text(playerCards);
+          $(".dealerDeck").text(dealerCards);
+          $(".playerScore").text(playerScore);
+          $(".dealerScore").text(dealerScore);
+
+          winner = whoWon(playerScore, dealerScore);
           $(".winner").text(winner);
           $('#game-over').show();
         }
