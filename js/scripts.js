@@ -85,27 +85,72 @@ var whoWon = function(playerScore, dealerScore){
     return "Dealer wins!"
   }
 
-}
+};
 
+var doesDealerHit = function(dealerDeck){
+  var dealerScore = getScore(dealerDeck);
+  if(dealerScore >= 17){
+    return false;
+  }
+  else if(dealerScore < 17){
+    return true;
+  }
+};
 
 $(document).ready(function() {
   $("form#get-cards").submit(function(event) {
     var playerCards = drawCards(2);
+    var dealerCards = drawCards(2);
+    var playerScore;
+    var dealerScore;
     $(".playerDeck").text(playerCards);
     $('#cardDisplay').show();
     event.preventDefault();
-    $("form#hit").submit(function(event) {
-    //  var newCard = dra
-      playerCards.push(drawCards(1));
-      $(".playerDeck").text(playerCards);
-      $('#cardDisplay').show();
-      event.preventDefault();
-    });
-    $("form#stay").submit(function(event) {
-      $(".playerDeck").text(playerCards);
-      $('#cardDisplay').show();
-      event.preventDefault();
-    });
+
+      $("form#hit").submit(function(event) {
+
+      //  var newCard = dra
+
+        playerCards.push(drawCards(1));
+
+
+        if(doesDealerHit(dealerCards) === true){
+          dealerCards.push(drawCards(1));
+        }
+
+        if(doesDealerHit(dealerCards) === false){
+          $('#game-over').show();
+        }
+
+        playerScore = getScore(playerCards);
+        dealerScore = getScore(dealerCards);
+        $(".playerDeck").text(playerCards);
+        $(".dealerDeck").text(dealerCards);
+        $(".playerScore").text(playerScore);
+        $(".dealerScore").text(dealerScore);
+        $('#cardDisplay').show();
+
+        event.preventDefault();
+      });
+
+      $("form#stay").submit(function(event) {
+        if(doesDealerHit(dealerCards) === true){
+          dealerCards.push(drawCards(1));
+        }
+        if(doesDealerHit(dealerCards) === false){
+          $('#game-over').show();
+        }
+
+        playerScore = getScore(playerCards);
+        dealerScore = getScore(dealerCards);
+        $(".playerDeck").text(playerCards);
+        $(".dealerDeck").text(dealerCards);
+        $(".playerScore").text(playerScore);
+        $(".dealerScore").text(dealerScore);
+
+        $('#cardDisplay').show();
+        event.preventDefault();
+      });
   });
 
 });
