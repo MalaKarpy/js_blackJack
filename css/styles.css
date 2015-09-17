@@ -5,3 +5,10 @@
 #game-over{
   display: none;
 }
+
+/*.html{
+  background-color: green;
+}*/
+body {
+    background-color: green;
+}
