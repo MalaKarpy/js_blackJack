@@ -84,21 +84,25 @@ var didTheyBust = function(score){
 }
 
 var whoWon = function(playerScore, dealerScore){
+  /*
   if(didTheyBust(playerScore) === false && playerScore > dealerScore){
     return "Player wins!";
-  }
+  }*/
   //add code for when player gets a "blackjack"
+  if((didTheyBust(playerScore) === true) && (didTheyBust(dealerScore) === true)){
+    return "Ruh roh! Double bust! That's a tie!";
+  }
 
   if(playerScore === dealerScore){
     return "It's a push!"
   }
 
   if(didTheyBust(playerScore) === true){
-    return "Dealer wins!";
+    return "Player bust! Dealer wins!";
   }
 
   if(didTheyBust(dealerScore) === true){
-    return "Player wins!";
+    return "Dealer bust, player wins!!!";
   }
 
   if(playerScore > dealerScore){
@@ -134,11 +138,13 @@ $(document).ready(function() {
     $(".dealerScore").text(getScore(dealerCards));
 
     $('#cardDisplay').show();
+//    $('#buttonDiv').show();
+  //  $('#game-over').hide();
+
+
     event.preventDefault();
 
       $("form#hit").submit(function(event) {
-
-
       //  playerCards.push(drawCards(1));
       thisArray = drawCards(1);
       playerCards.push(thisArray[0]);
@@ -154,6 +160,8 @@ $(document).ready(function() {
         winner = whoWon(playerScore, dealerScore);
         $(".winner").text(winner);
         $('#game-over').show();
+      //  $('#buttonDiv').hide();
+
       }
 
         if(doesDealerHit(dealerCards) === true){
@@ -172,6 +180,8 @@ $(document).ready(function() {
             winner = whoWon(playerScore, dealerScore);
             $(".winner").text(winner);
             $('#game-over').show();
+        //    $('#buttonDiv').hide();
+
           }
         }
 
@@ -180,8 +190,10 @@ $(document).ready(function() {
           playerScore = getScore(playerCards);
           dealerScore = getScore(dealerCards);
           var winner = whoWon(playerScore, dealerScore);
-          $(".winner").text(winner);
+          $(".winner").text("Dealer decided to hold, which ends game... " + winner);
           $('#game-over').show();
+          $('#buttonDiv').hide();
+
         }
         playerScore = getScore(playerCards);
         dealerScore = getScore(dealerCards);
@@ -211,6 +223,9 @@ $(document).ready(function() {
             winner = whoWon(playerScore, dealerScore);
             $(".winner").text(winner);
             $('#game-over').show();
+        //    $('#buttonDiv').hide();
+
+            $(".")
           }
         }
         if(doesDealerHit(dealerCards) === false){
@@ -223,8 +238,10 @@ $(document).ready(function() {
           $(".dealerScore").text(dealerScore);
 
           winner = whoWon(playerScore, dealerScore);
-          $(".winner").text(winner);
+          $(".winner").text("Dealer decided to hold, which ends game..." + winner);
           $('#game-over').show();
+          $('#buttonDiv').hide();
+
         }
 
         playerScore = getScore(playerCards);
