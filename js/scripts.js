@@ -12,6 +12,16 @@
 
 };
 
+var drawSingleCard = function(numberCards) {
+  //array of cards goes here
+  var userCard;
+    var deck = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+    var randomNum = Math.floor(Math.random() * 12);
+  //  userCards.push(deck[randomNum]);
+  return userCard;
+
+};
+
 var getScore = function(deckArray){
   var score = 0;
   for (var i = 0; i < deckArray.length; i++){
@@ -99,29 +109,33 @@ var doesDealerHit = function(dealerDeck){
 
 $(document).ready(function() {
   $("form#get-cards").submit(function(event) {
+    debugger;
     var playerCards = drawCards(2);
     var dealerCards = drawCards(2);
     var playerScore;
     var dealerScore;
+    var thisArray;
     $(".playerDeck").text(playerCards);
     $('#cardDisplay').show();
     event.preventDefault();
 
       $("form#hit").submit(function(event) {
 
-      //  var newCard = dra
 
-        playerCards.push(drawCards(1));
+      //  playerCards.push(drawCards(1));
+      thisArray = drawCards(1);
+      playerCards.push(thisArray[0]);
 
 
         if(doesDealerHit(dealerCards) === true){
-          dealerCards.push(drawCards(1));
+          thisArray = drawCards(1);
+
+          dealerCards.push(thisArray[0]);
         }
 
         if(doesDealerHit(dealerCards) === false){
           $('#game-over').show();
         }
-
         playerScore = getScore(playerCards);
         dealerScore = getScore(dealerCards);
         $(".playerDeck").text(playerCards);
@@ -135,7 +149,8 @@ $(document).ready(function() {
 
       $("form#stay").submit(function(event) {
         if(doesDealerHit(dealerCards) === true){
-          dealerCards.push(drawCards(1));
+          thisArray = drawCards(1);
+          dealerCards.push(thisArray[0]);
         }
         if(doesDealerHit(dealerCards) === false){
           $('#game-over').show();
