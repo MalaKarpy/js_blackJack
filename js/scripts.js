@@ -57,6 +57,7 @@ var getScore = function(deckArray){
     }
 
   }//end of for loop
+  if (numAces > 0){
   if((score + (numAces - 1) + 11) <= 21){
     for(i = 0; i < (numAces - 1); i++){
       score += 1;
@@ -68,6 +69,7 @@ var getScore = function(deckArray){
       score += 1;
     }
   }
+}
   return score;
 };
 
