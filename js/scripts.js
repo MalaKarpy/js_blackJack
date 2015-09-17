@@ -109,7 +109,6 @@ var doesDealerHit = function(dealerDeck){
 
 $(document).ready(function() {
   $("form#get-cards").submit(function(event) {
-    debugger;
     var playerCards = drawCards(2);
     var dealerCards = drawCards(2);
     var playerScore;
@@ -134,6 +133,11 @@ $(document).ready(function() {
         }
 
         if(doesDealerHit(dealerCards) === false){
+          debugger;
+          playerScore = getScore(playerCards);
+          dealerScore = getScore(dealerCards);
+          var winner = whoWon(playerScore, dealerScore);
+          $(".winner").text(winner);
           $('#game-over').show();
         }
         playerScore = getScore(playerCards);
@@ -153,6 +157,11 @@ $(document).ready(function() {
           dealerCards.push(thisArray[0]);
         }
         if(doesDealerHit(dealerCards) === false){
+          debugger;
+          playerScore = getScore(playerCards);
+          dealerScore = getScore(dealerCards);
+          var winner = whoWon(playerScore, dealerScore);
+          $(".winner").text(winner);
           $('#game-over').show();
         }
 
@@ -162,7 +171,6 @@ $(document).ready(function() {
         $(".dealerDeck").text(dealerCards);
         $(".playerScore").text(playerScore);
         $(".dealerScore").text(dealerScore);
-
         $('#cardDisplay').show();
         event.preventDefault();
       });

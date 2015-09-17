@@ -10,13 +10,14 @@ describe('getScore', function() {
   });
 
   it("is 20 for getScore [8, 7, 3]", function() {
-    var deck = ['8', '7', '3'];
+    var deck = ["8", "7", "3"];
     expect(getScore(deck)).to.equal(18);
   });
 
+  it("")
 
 
-});
+
 
 describe('didTheyBust', function() {
   it("is true for didTheyBust 28", function() {
